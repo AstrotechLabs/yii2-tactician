@@ -18,7 +18,7 @@ This is a Yii Framework 2 Wrapper/Adapter for [Tactician Command Bus Library](ht
 >
 > By: tactician.thephpleague.com
 
-## When should I not use it?
+## When should I NOT use it?
 
 > If you’ve got a very small app that doesn’t need a service layer, then Tactician won’t offer much to you.
 >
@@ -34,9 +34,9 @@ $ composer require dersonsena/yii2-tactician
 
 ## Setup
 
-First of all, you must configure your [Yii Dependency Injection Container](https://www.yiiframework.com/doc/guide/2.0/en/concept-di-container) to be able to use Command and Handler classes inside him.
+First you must have configure your [Yii Dependency Injection Container](https://www.yiiframework.com/doc/guide/2.0/en/concept-di-container) to be able to use Command and Handler classes within it.
 
-You should have something like that in your `config/web.php`:
+You should have something like this in your `config/web.php`:
 
 ```php
 $config = [
@@ -53,12 +53,12 @@ $config = [
 ];
 ```
 
-You must follow the conventions below:
+**IMPORTANT:** you must follow the conventions below:
 
-- Your **Command** class must be suffixed by `Command`
+- Your **Command** class must be suffixed by `Command`;
 - Your **Handler** class must be: `Same Command Class Name` + `Without Command Suffix` + `Handler`.
 
-The last one is register component in your `config/web.php` file, as below:
+The last one is register [Yii2TacticianCommandBus](./src/Yii2TacticianCommandBus.php) component in your `config/web.php` file, as below:
 
 ```php
 $config = [
@@ -127,11 +127,11 @@ public function actionDoSomething()
 }
 ```
 
-That's all! =)
+Enjoy =).
 
 ## Authors
 
--   [Kilderson Sena](https://github.com/dersonsena) - Initial work - [Yii Academy](https://www.yiiacademy.com.br)
+-   [Kilderson Sena](https://github.com/dersonsena) - Owner - [Yii Academy](https://www.yiiacademy.com.br)
 
 See also the list of [contributors](https://github.com/dersonsena/yii2-tactician/contributors) who participated in this project.
 
