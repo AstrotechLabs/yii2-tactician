@@ -16,7 +16,7 @@ This is a Yii Framework 2 Wrapper/Adapter for [Tactician Command Bus Library](ht
 >
 > The command bus itself is really easy to decorate with extra behaviors, like locking or database transactions so it’s very easy to extend with plugins.
 >
-> _By: tactician.thephpleague.com_
+> By: tactician.thephpleague.com
 
 ## When should I not use it?
 
@@ -34,38 +34,56 @@ $ composer require dersonsena/yii2-tactician
 
 ## Setup
 
-First of all, let's create a file with under `config/command-bus.php` to map our command and handlers ones, link this:
+First of all, you must configure your [Yii Dependency Injection Container](https://www.yiiframework.com/doc/guide/2.0/en/concept-di-container) to be able to use Command and Handler classes inside him.
+
+You should have something like that in your `config/web.php`:
 
 ```php
-return [
-    YourCommandClass::class => YourHandlerClass::class,
-    AnotherCommandClass::class => AnotherHandlerClass::class,
-    // ...
+$config = [
+    'id' => 'your-app-id',
+    //...
+    'container' => [
+        'definitions' => [
+            MyClassCommand::class => MyClassHandler::class 
+        ]
+    ],
+    'components' => [
+        //...
+    ]
 ];
 ```
 
-**Heads up**: to become easily, this component will be call automatically the Handler classes, `YourHandlerClass` and `AnotherHandlerClass` in this example, from [Yii Dependency Injection Container](https://www.yiiframework.com/doc/guide/2.0/en/concept-di-container).
+You must follow the conventions below:
+
+- Your **Command** class must be suffixed by `Command`
+- Your **Handler** class must be: `Same Command Class Name` + `Without Command Suffix` + `Handler`.
 
 The last one is register component in your `config/web.php` file, as below:
 
 ```php
-return [
-    // ...
+$config = [
+    'id' => 'your-app-id',
+    //...
+    'container' => [
+        'definitions' => [
+            MyClassCommand::class => MyClassHandler::class 
+        ]
+    ],
     'components' => [
         'commandBus' => [
-            'class' => DersonSena\Yii2Tactician\Yii2TacticianCommandBus::class,
-            'commandHandlerMap' => require __DIR__ . '/command-bus.php'
+            'class' => DersonSena\Yii2Tactician\Yii2TacticianCommandBus::class
         ],
         // other components...
-    ],
-    // ...
+    ]
 ];
 ```
 
-Define a command class somewhere in your application, for example:
+## How to Use
+
+Define a `Command` class somewhere in your application, for example:
 
 ```php
-class YourCommandClass
+class MyClassCommand
 {
     public $someParam;
     public $someOtherParam;
@@ -78,12 +96,12 @@ class YourCommandClass
 }
 ```
 
-So your `Handler` class should be something like:
+Define your `Handler` class should be something like:
 
 ```php
-class YourCommandClassHandler
+class MyClassHandler
 {
-    public function handle(YourCommandClass $command)
+    public function handle(MyClassCommand $command)
     {
     	// do command stuff hire!
         // we can use $command->someParam and $this->someOtherParam
@@ -91,13 +109,15 @@ class YourCommandClassHandler
 }
 ```
 
-Now we can use this command in controllers (or wherever you want):
+Now we can use this command in controllers or wherever you want:
 
 ```php
 public function actionDoSomething()
 {
     $queryParam = Yii::$app->getRequest()->get('some_param');
-    $result = Yii::$app->commandBus->handle(new YourCommandClass($queryParam));
+    
+    // Here the magic happens! =)
+    $result = Yii::$app->commandBus->handle(new MyClassCommand($queryParam));
 
     if ($result === true) {
     	return $this->redirect(['go/to/some/place']);

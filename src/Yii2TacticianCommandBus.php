@@ -5,31 +5,24 @@ declare(strict_types=1);
 namespace DersonSena\Yii2Tactician;
 
 use Yii;
+use DersonSena\Yii2Tactician\Exceptions\MissingHandleMethodException;
+use DersonSena\Yii2Tactician\MethodName\Handle;
+use DersonSena\Yii2Tactician\ClassName\Suffix;
 use yii\base\Component;
 use League\Tactician\CommandBus;
-use League\Tactician\Handler\CommandNameExtractor\ClassNameExtractor;
-use League\Tactician\Handler\Locator\InMemoryLocator;
-use League\Tactician\Handler\MethodNameInflector\HandleInflector;
 use League\Tactician\Plugins\LockingMiddleware;
-use League\Tactician\Handler\CommandHandlerMiddleware;
 
 final class Yii2TacticianCommandBus extends Component
 {
     private CommandBus $commandBus;
-    public array $commandHandlerMap = [];
 
     public function init()
     {
         parent::init();
 
-        $commandHandlerMap = array_map(function ($handlerClassName) {
-            return Yii::$container->get($handlerClassName);
-        }, $this->commandHandlerMap);
-
         $handlerMiddleware = new CommandHandlerMiddleware(
-            new ClassNameExtractor(),
-            new InMemoryLocator($commandHandlerMap),
-            new HandleInflector()
+            Yii::$container,
+            new MapByNamingConvention(new Suffix('Handler'), new Handle())
         );
 
         $lockingMiddleware = new LockingMiddleware();
@@ -37,14 +30,14 @@ final class Yii2TacticianCommandBus extends Component
         $this->commandBus = new CommandBus([$lockingMiddleware, $handlerMiddleware]);
     }
 
-    public function __call($name, $params)
+    public function handle(object $commandObject)
     {
-        $callable = [$this->commandBus, $name];
+        $callable = [$this->commandBus, 'handle'];
 
-        if (is_callable($callable)) {
-            return call_user_func_array($callable, $params);
+        if (!is_callable($callable)) {
+            throw new MissingHandleMethodException();
         }
 
-        return parent::__call($name, $params);
+        return call_user_func_array($callable, [$commandObject]);
     }
 }
