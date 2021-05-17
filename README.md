@@ -1,5 +1,12 @@
 
 # Yii2 Tactician Command Bus
+
+![Packagist PHP Version Support](https://img.shields.io/packagist/php-v/dersonsena/yii2-tactician)
+[![GitHub stars](https://img.shields.io/github/stars/dersonsena/yii2-tactician)](https://github.com/dersonsena/yii2-tactician/stargazers)
+[![GitHub forks](https://img.shields.io/github/forks/dersonsena/yii2-tactician)](https://github.com/dersonsena/yii2-tactician/network)
+![GitHub repo size](https://img.shields.io/github/repo-size/dersonsena/yii2-tactician)
+[![GitHub license](https://img.shields.io/github/license/dersonsena/yii2-tactician)](https://github.com/dersonsena/yii2-tactician/blob/master/LICENSE)
+
 This is a Yii Framework 2 Wrapper/Adapter for [Tactician Command Bus Library](https://tactician.thephpleague.com/). It provides an easy way to use the command bus pattern in Yii2 Based apps.
 
 ## When should I use Command Bus?
