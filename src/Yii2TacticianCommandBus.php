@@ -2,7 +2,7 @@
 
 declare(strict_types=1);
 
-namespace App\Shared\Infra\Components;
+namespace DersonSena\Yii2Tactician;
 
 use Yii;
 use yii\base\Component;

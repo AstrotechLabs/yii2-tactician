@@ -1,4 +1,3 @@
-
 # Yii2 Tactician Command Bus
 
 ![Packagist PHP Version Support](https://img.shields.io/packagist/php-v/dersonsena/yii2-tactician)
@@ -10,20 +9,22 @@
 This is a Yii Framework 2 Wrapper/Adapter for [Tactician Command Bus Library](https://tactician.thephpleague.com/). It provides an easy way to use the command bus pattern in Yii2 Based apps.
 
 ## When should I use Command Bus?
-> Tactician is a great fit if you’ve got a service layer. If you’re not sure what a service layer is, Martin Fowler’s PoEAA is a good starting point. Tactician’s author also did a talk on the subject. 
-> 
+
+> Tactician is a great fit if you’ve got a service layer. If you’re not sure what a service layer is, Martin Fowler’s PoEAA is a good starting point. Tactician’s author also did a talk on the subject.
+>
 > Commands really help capture user intent. They’re also a great stand-in for the models when it comes to forms or serializer libraries that expect getter/setter objects.
 >
 > The command bus itself is really easy to decorate with extra behaviors, like locking or database transactions so it’s very easy to extend with plugins.
-> 
-> *By: tactician.thephpleague.com*
+>
+> _By: tactician.thephpleague.com_
 
 ## When should I not use it?
+
 > If you’ve got a very small app that doesn’t need a service layer, then Tactician won’t offer much to you.
 >
 > If you’re already using a tool that provides a command bus (like Broadway), you’re probably okay there too.
 >
-> *By: tactician.thephpleague.com*
+> _By: tactician.thephpleague.com_
 
 ## Installation
 
@@ -32,6 +33,7 @@ $ composer require dersonsena/yii2-tactician
 ```
 
 ## Setup
+
 First of all, let's create a file with under `config/command-bus.php` to map our command and handlers ones, link this:
 
 ```php
@@ -51,25 +53,24 @@ return [
     // ...
     'components' => [
         'commandBus' => [
-            'class' => 'Dersonsena\Yii2TacticianCommandBus',
+            'class' => DersonSena\Yii2Tactician\Yii2TacticianCommandBus::class,
             'commandHandlerMap' => require __DIR__ . '/command-bus.php'
         ],
         // other components...
     ],
     // ...
 ];
-
 ```
 
 Define a command class somewhere in your application, for example:
 
 ```php
-class YourCommandClass 
+class YourCommandClass
 {
     public $someParam;
     public $someOtherParam;
-    
-    public function __construct($someParam, $someOtherParam = 'defaultValue') 
+
+    public function __construct($someParam, $someOtherParam = 'defaultValue')
     {
     	$this->someParam = $someParam;
         $this->someOtherParam = $someOtherParam;
@@ -97,19 +98,20 @@ public function actionDoSomething()
 {
     $queryParam = Yii::$app->getRequest()->get('some_param');
     $result = Yii::$app->commandBus->handle(new YourCommandClass($queryParam));
-    
+
     if ($result === true) {
     	return $this->redirect(['go/to/some/place']);
     }
-    
+
     return $this->render('some-awesome-view');
 }
 ```
+
 That's all! =)
 
 ## Authors
 
-- [Kilderson Sena](https://github.com/dersonsena) - Initial work - [Yii Academy](https://www.yiiacademy.com.br)
+-   [Kilderson Sena](https://github.com/dersonsena) - Initial work - [Yii Academy](https://www.yiiacademy.com.br)
 
 See also the list of [contributors](https://github.com/dersonsena/yii2-tactician/contributors) who participated in this project.
 
@@ -125,5 +127,5 @@ This package is released under the [MIT](https://choosealicense.com/licenses/mit
 
 ## References
 
-- [thephpleague/tactician](https://github.com/thephpleague/tactician)
-- [pavelmics/YiiTactician](https://github.com/pavelmics/YiiTactician/blob/master/README.md)
+-   [thephpleague/tactician](https://github.com/thephpleague/tactician)
+-   [pavelmics/YiiTactician](https://github.com/pavelmics/YiiTactician/blob/master/README.md)
