@@ -186,7 +186,7 @@ public function actionDoSomething()
 Under the hood the Command Bus System will call:
 
 ```php
-MyClassHandler::handler($command);
+MyClassHandler::handle($command);
 ```
 
 where `$command` argument is created inside that like:
