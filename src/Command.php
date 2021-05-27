@@ -8,8 +8,8 @@ interface Command
 {
     /**
      * Factory method to create and fill your command class
-     * @param array $parameters
+     * @param array $values Associative array such as `'propertyName' => 'value'`
      * @return Command
      */
-    public static function create(array $parameters): Command;
+    public static function create(array $values): Command;
 }
