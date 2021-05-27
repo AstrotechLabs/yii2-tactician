@@ -80,6 +80,8 @@ $config = [
 
 ## How to Use
 
+### Mapping Command and Handler Classes
+
 Define a `Command` class somewhere in your application, for example:
 
 ```php
@@ -103,7 +105,7 @@ class MyClassHandler
 {
     public function handle(MyClassCommand $command)
     {
-    	// do command stuff hire!
+    	// do command stuff here!
         // we can use $command->someParam and $this->someOtherParam
     }
 }
@@ -125,6 +127,72 @@ public function actionDoSomething()
 
     return $this->render('some-awesome-view');
 }
+```
+
+### Using String Path
+
+You can use a command class as **String Path** instead of concrete object. For this case, just do:
+
+```php
+$config = [
+    'id' => 'your-app-id',
+    //...
+    'container' => [
+        'definitions' => [
+            // you can use any string here.
+            'awesome.alias.to.be.called.anywhere' => MyClassHandler::class 
+        ]
+    ],
+    'components' => [
+        //...
+    ]
+];
+```
+
+Your **Handle Class** should be as follows:
+
+```php
+class MyClassHandler implements \DersonSena\Yii2Tactician\Handler
+{
+    public function handle(MyClassCommand $command)
+    {
+    	// do command stuff here!
+        // we can use $command->someParam and $this->someOtherParam
+    }
+    
+    public function commandClassName(): string
+    {
+        return MyClassCommand::class;
+    }
+}
+```
+
+> **IMPORTANT:** in this way your **Handler Class** MUST implements the [DersonSena\Yii2Tactician\Handler](src/Handler.php) interface and your **Command Class** MUST implements [DersonSena\Yii2Tactician\Command](src/Command.php).
+
+Your controller action or anywhere else:
+
+```php
+public function actionDoSomething()
+{
+    $result = Yii::$app->commandBus->handle('awesome.alias.to.be.called.anywhere', [
+        'someParam' => 'abc',
+        'someOtherParam' => 'def'
+    ]);
+    
+    // .. other logics
+}
+```
+
+Under the hood the Command Bus System will call:
+
+```php
+MyClassHandler::handler($command);
+```
+
+where `$command` argument is created inside that like:
+
+```php
+MyClassCommand::create([someParam' => 'abc', 'someOtherParam' => 'def']);
 ```
 
 Enjoy =).

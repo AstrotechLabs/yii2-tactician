@@ -55,13 +55,16 @@ final class Yii2TacticianCommandBus extends Component
                 throw new RuntimeException("Command class '{$commandClass}' doesn't exists.");
             }
 
+            if (!is_a($commandClass, Command::class)) {
+                throw new RuntimeException("Command class must implements '" . Command::class . "' interface.");
+            }
+
+            /** @var Command $command */
             $command = $commandClass::create($parameters);
 
             return call_user_func_array($callable, [$command]);
         }
 
-        if (is_object($command) && is_callable($callable)) {
-            return call_user_func_array($callable, [$command]);
-        }
+        return call_user_func_array($callable, [$command]);
     }
 }
