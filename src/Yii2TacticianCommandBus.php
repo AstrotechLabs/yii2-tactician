@@ -49,6 +49,15 @@ final class Yii2TacticianCommandBus extends Component
 
             /** @var \DersonSena\Yii2Tactician\Handler $handleObject */
             $handleObject = Yii::$container->get($command);
+
+            if (!($handleObject instanceof Handle)) {
+                throw new RuntimeException("Handle class must implements '" . Handle::class . "' interface.");
+            }
+
+            if (!method_exists($handleObject, 'handle')) {
+                throw new RuntimeException("Handle class '{$handleObject::class}' must be a handle() method.");
+            }
+
             $commandClass = $handleObject->commandClassName();
 
             if (!class_exists($commandClass)) {
@@ -62,7 +71,7 @@ final class Yii2TacticianCommandBus extends Component
                 throw new RuntimeException("Command class must implements '" . Command::class . "' interface.");
             }
 
-            return call_user_func_array($callable, [$command]);
+            return $handleObject->handle($command);
         }
 
         return call_user_func_array($callable, [$command]);
