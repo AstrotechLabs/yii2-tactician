@@ -40,8 +40,6 @@ final class Yii2TacticianCommandBus extends Component
      */
     public function handle($command, array $parameters = [])
     {
-        $callable = [$this->commandBus, 'handle'];
-
         if (is_string($command)) {
             if (empty($parameters)) {
                 throw new InvalidArgumentException("You must provide parameters when command is a string path.");
@@ -50,12 +48,12 @@ final class Yii2TacticianCommandBus extends Component
             /** @var \DersonSena\Yii2Tactician\Handler $handleObject */
             $handleObject = Yii::$container->get($command);
 
-            if (!($handleObject instanceof Handle)) {
-                throw new RuntimeException("Handle class must implements '" . Handle::class . "' interface.");
+            if (!($handleObject instanceof Handler)) {
+                throw new RuntimeException("Handler class '" . get_class($handleObject) . "' must implements '" . Handler::class . "' interface.");
             }
 
             if (!method_exists($handleObject, 'handle')) {
-                throw new RuntimeException("Handle class '{$handleObject::class}' must be a handle() method.");
+                throw new RuntimeException("Handler class '" . get_class($handleObject) . "' must be a handle method.");
             }
 
             $commandClass = $handleObject->commandClassName();
@@ -71,9 +69,9 @@ final class Yii2TacticianCommandBus extends Component
                 throw new RuntimeException("Command class must implements '" . Command::class . "' interface.");
             }
 
-            return $handleObject->handle($command);
+            return call_user_func_array([$handleObject, 'handle'], [$command]);
         }
 
-        return call_user_func_array($callable, [$command]);
+        return call_user_func_array([$this->commandBus, 'handle'], [$command]);
     }
 }
