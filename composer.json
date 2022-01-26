@@ -13,7 +13,7 @@
         }
     ],
     "require": {
-        "php": "^7.4",
+        "php": ">=7.4",
         "league/tactician": "^1.1",
         "yiisoft/yii2": "~2.0.41",
         "yidas/yii2-bower-asset": "~2.0.13"
