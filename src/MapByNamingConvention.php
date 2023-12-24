@@ -2,10 +2,10 @@
 
 declare(strict_types=1);
 
-namespace DersonSena\Yii2Tactician;
+namespace AstrotechLabs\Yii2Tactician;
 
-use DersonSena\Yii2Tactician\ClassName\ClassNameInflector;
-use DersonSena\Yii2Tactician\MethodName\MethodNameInflector;
+use AstrotechLabs\Yii2Tactician\ClassName\ClassNameInflector;
+use AstrotechLabs\Yii2Tactician\MethodName\MethodNameInflector;
 
 final class MapByNamingConvention implements CommandToHandlerMapping
 {

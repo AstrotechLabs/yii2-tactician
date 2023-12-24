@@ -2,7 +2,7 @@
 
 declare(strict_types=1);
 
-namespace DersonSena\Yii2Tactician;
+namespace AstrotechLabs\Yii2Tactician;
 
 interface Command
 {

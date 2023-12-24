@@ -2,7 +2,7 @@
 
 declare(strict_types=1);
 
-namespace DersonSena\Yii2Tactician\ClassName;
+namespace AstrotechLabs\Yii2Tactician\ClassName;
 
 final class Suffix implements ClassNameInflector
 {

@@ -2,7 +2,7 @@
 
 declare(strict_types=1);
 
-namespace DersonSena\Yii2Tactician\MethodName;
+namespace AstrotechLabs\Yii2Tactician\MethodName;
 
 final class Handle implements MethodNameInflector
 {

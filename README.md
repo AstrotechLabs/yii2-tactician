@@ -29,7 +29,7 @@ This is a Yii Framework 2 Wrapper/Adapter for [Tactician Command Bus Library](ht
 ## Installation
 
 ```bash
-$ composer require dersonsena/yii2-tactician
+$ composer require astrotechlabs/yii2-tactician
 ```
 
 ## Setup
@@ -71,7 +71,7 @@ $config = [
     ],
     'components' => [
         'commandBus' => [
-            'class' => DersonSena\Yii2Tactician\Yii2TacticianCommandBus::class
+            'class' => AstrotechLabs\Yii2Tactician\Yii2TacticianCommandBus::class
         ],
         // other components...
     ]
@@ -152,7 +152,7 @@ $config = [
 Your **Handle Class** should be as follows:
 
 ```php
-class MyClassHandler implements \DersonSena\Yii2Tactician\Handler
+class MyClassHandler implements AstrotechLabs\Yii2Tactician\Handler
 {
     public function handle(MyClassCommand $command)
     {
@@ -167,7 +167,7 @@ class MyClassHandler implements \DersonSena\Yii2Tactician\Handler
 }
 ```
 
-> **IMPORTANT:** in this way your **Handler Class** MUST implements the [DersonSena\Yii2Tactician\Handler](src/Handler.php) interface and your **Command Class** MUST implements [DersonSena\Yii2Tactician\Command](src/Command.php).
+> **IMPORTANT:** in this way your **Handler Class** MUST implements the [AstrotechLabs\Yii2Tactician\Handler](src/Handler.php) interface and your **Command Class** MUST implements [AstrotechLabs\Yii2Tactician\Command](src/Command.php).
 
 Your controller action or anywhere else:
 

@@ -2,9 +2,9 @@
 
 declare(strict_types=1);
 
-namespace DersonSena\Yii2Tactician;
+namespace AstrotechLabs\Yii2Tactician;
 
-use DersonSena\Yii2Tactician\Exceptions\MethodDoesNotExist;
+use AstrotechLabs\Yii2Tactician\Exceptions\MethodDoesNotExist;
 
 final class MethodToCall
 {

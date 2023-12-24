@@ -2,13 +2,13 @@
 
 declare(strict_types=1);
 
-namespace DersonSena\Yii2Tactician;
+namespace AstrotechLabs\Yii2Tactician;
 
 use Yii;
 use InvalidArgumentException;
 use RuntimeException;
-use DersonSena\Yii2Tactician\MethodName\Handle;
-use DersonSena\Yii2Tactician\ClassName\Suffix;
+use AstrotechLabs\Yii2Tactician\MethodName\Handle;
+use AstrotechLabs\Yii2Tactician\ClassName\Suffix;
 use yii\base\Component;
 use League\Tactician\CommandBus;
 use League\Tactician\Plugins\LockingMiddleware;
@@ -45,7 +45,7 @@ final class Yii2TacticianCommandBus extends Component
                 throw new InvalidArgumentException("You must provide parameters when command is a string path.");
             }
 
-            /** @var \DersonSena\Yii2Tactician\Handler $handleObject */
+            /** @var \AstrotechLabs\Yii2Tactician\Handler $handleObject */
             $handleObject = Yii::$container->get($command);
 
             if (!($handleObject instanceof Handler)) {

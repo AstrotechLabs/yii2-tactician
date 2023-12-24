@@ -1,14 +1,14 @@
 {
-    "name": "dersonsena/yii2-tactician",
+    "name": "astrotechlabs/yii2-tactician",
     "description": "Yii 2 Command Bus pattern implementation",
     "keywords": ["yii2", "framework", "command bus", "command handler", "cqrs", "service layer"],
-    "homepage": "https://github.com/dersonsena/yii2-command-bus",
+    "homepage": "https://github.com/astrotechlabs/yii2-tactician",
     "type": "project",
     "license": "MIT",
     "authors": [
         {
             "name": "Kilderson Sena",
-            "email": "dersonsena@gmail.com",
+            "email": "kilderson@astrotech.solutions",
             "role": "owner"
         }
     ],
@@ -24,7 +24,8 @@
     },
     "autoload": {
         "psr-4": {
-            "DersonSena\\Yii2Tactician\\": "src"
+            "DersonSena\\Yii2Tactician\\": "src",
+            "AstrotechLabs\\Yii2Tactician\\": "src"
         }
     },
     "config": {

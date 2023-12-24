@@ -2,7 +2,7 @@
 
 declare(strict_types=1);
 
-namespace DersonSena\Yii2Tactician\Exceptions;
+namespace AstrotechLabs\Yii2Tactician\Exceptions;
 
 use BadMethodCallException;
 use League\Tactician\Exception\Exception;
